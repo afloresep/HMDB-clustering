@@ -42,8 +42,11 @@ One would use standarization when contrasting disparate units like the height of
 
 Altough HMDB database contains diverse lipids, phospholipids... which could explain the difference in magnitud for some fingerprints? So maybe standarization is due?
 
-Let's try doing it and see what happens...
-
 When it comes to using PCA, data standarization is usually the go-to step. However, the situation is a bit different with map4 fingerprints. Despite having variations that span three orders of magnitude (1e05 / 1e08) these fingerprints are actually measured on a consistent scale (map4). This makes me wonder if standarization is really necessary...
 Statistics is not my area of expertise so i could be wrong!
 We're comparing apples to apples so to speak... For instance, you'd standardize when comparing something like the height of a tree and the tree's girth – they're completely different units.
+
+
+# Results 
+
+So, for what we can see in the `test.ipynb` notebook, standarization does not affect how the molecules are clustered... 
