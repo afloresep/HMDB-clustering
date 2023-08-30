@@ -7,13 +7,13 @@
 - [Contributing](#contributing)
 - [License](#license)
 
-## Overview
+# Overview
 
-## Dataset
+# Dataset
 
 Data can be found in `MR1-map4-clean.xlsx` and `MR1-map4-clean.csv` datasets. Sourced from HMDB.
 
-## Code
+# Code
 
 ### Original Approach (`original-aproach.ipynb`)
 
@@ -33,20 +33,20 @@ Initially, we conducted a test using map4 fingerprints to observe their impact o
 
 This notebook was created to determine the optimal K value for our dataset.
 
-## Standardization
+## Standardize or Not to Standardize, That Is the Question {#standardize-or-not-to-standardize-that-is-the-question}
 
-### Standardize or Not to Standardize, That Is the Question {#standardize-or-not-to-standardize-that-is-the-question}
+Typically, data is standardized before performing a PCA. 
+However, in the case of map4 fingerprints, I find that standarization might not be necessary due to being messured in the same scale (despite variations spanning three orders of magnitud). 
+One would use standarization when contrasting disparate units like the height of a tree and the girth of the same tree. 
 
-When it comes to PCA, standardizing data is common practice. However, the scenario changes with map4 fingerprints. Their inherent scale (despite variations spanning three orders of magnitude) challenges the necessity of standardization. Standardization is typically employed to bridge dissimilar units, like comparing the height and girth of a tree.
+Altough HMDB database contains diverse lipids, phospholipids... which could explain the difference in magnitud for some fingerprints? So maybe standarization is due?
 
-Yet, the HMDB database comprises diverse lipids and phospholipids, potentially explaining magnitude differences. Could standardization address this?
+Let's try doing it and see what happens...
 
-Let's put it to the test and see what unfolds. While PCA often demands standardization, the unique attributes of map4 fingerprints might yield surprising results. While I'm not an expert in statistics, this exploration is enlightening.
+When it comes to using PCA, data standarization is usually the go-to step. However, the situation is a bit different with map4 fingerprints. Despite having variations that span three orders of magnitude (1e05 / 1e08) these fingerprints are actually measured on a consistent scale (map4). This makes me wonder if standarization is really necessary...
+Statistics is not my area of expertise so i could be wrong!
+We're comparing apples to apples so to speak... For instance, you'd standardize when comparing something like the height of a tree and the tree's girth – they're completely different units.
 
-In a way, we're comparing apples to apples. Standardization would be akin to contrasting the height and girth of a tree – fundamentally different units.
 
-However, HMDB's wide-ranging content includes various molecules, such as lipids and phospholipids. Could standardization offer a solution to these magnitude variations?
 
-We're giving standardization a shot to observe potential impacts. This experiment might clarify things, or it might not. Regardless, it's a step towards uncovering whether standardization influences our results.
 
-[Jump to the Question](#standardize-or-not-to-standardize-that-is-the-question)
