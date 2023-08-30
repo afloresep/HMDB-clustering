@@ -3,6 +3,13 @@
 Data can be found in `MR1-map4-clean.xlsx` and `MR1-map4-clean.csv` datasets.
 
 
+
+## Code
+
+
+# TRYYYYYYY
+`main.ipynb` - This method does not work as intended. Reason being that we first create molecular fingerprints based on similiraty between all pairs possible for all the molecules and then do clustering on them. That means that we are clustering 
+
 ### Standardize or not to standardize, that is the question
 
 Typically, data is standardized before performing a PCA. 
