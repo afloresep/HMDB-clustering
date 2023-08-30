@@ -11,7 +11,7 @@
 
 # Dataset
 
-Data used can be found in ``/datasets/MR1.smi`. Sourced from HMDB.
+Data used can be found in `/datasets/MR1.smi`. Sourced from HMDB.
 Map4 fingerprints for these molecules are in `/datasets/MR1-map4-clean.xlsx` or `/datasets/MR1-map4-clean.csv`
 
 # Code
