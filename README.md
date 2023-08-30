@@ -1,47 +1,52 @@
-## Data 
+## Table of Contents
+- [Overview](#overview)
+- [Dataset](#dataset)
+- [Code](#code)
+- [Results](#results)
+- [Standardization](#standardization)
+- [Contributing](#contributing)
+- [License](#license)
 
-Data can be found in `MR1-map4-clean.xlsx` and `MR1-map4-clean.csv` datasets.
+## Overview
 
+## Dataset
 
+Data can be found in `MR1-map4-clean.xlsx` and `MR1-map4-clean.csv` datasets. Sourced from HMDB.
 
 ## Code
 
-`original-aproach.ipynb` - This method does not work as intended. Reason being that we first create molecular fingerprints based on similiraty between all pairs possible for all the molecules and then do clustering on them. That means that we are clustering molecules based on data from for how similar are the pair fingerprint instead of how similar is the molecule itself. 
+### Original Approach (`original-aproach.ipynb`)
 
-`cluster-fp.ipynb` - Here we removed the MFP_matrix that was calculating similiraty between fingerprints pairs and went for a K-means clustering of the fingerprints. The result did not match our expectations. The reason is that the morgan fingerprint that we were using was not ideal for a diverse dataset such as HMDB (with phospholipids, drug-like molecules etc.). Therefore, even tough the code was fine, the fingerprint could not add as much information as we needed for clustering molecules. Hence, we had very different molecules grouped in the same cluster.
+This method unfortunately does not yield the intended results. The reason being that we initially create molecular fingerprints based on similarity between all possible pairs of molecules. We then perform clustering on these pairs, effectively clustering molecules based on the similarity of their pair fingerprints. This approach doesn't capture the molecule's inherent similarity.
 
-Being the fingerprint the main issue and not the code itself, we implemented 'map4' fingerprints from [reymon-group](https://github.com/reymond-group/map4/blob/master/README.md). Map4 was tested with data from the Human Metabolome data base. 
-The map4 fingerprint for each of the ~4000 molecules was exported and cleaned into a csv file named `MR1_map4-clean.csv`. Also a small dataset with only ~100 molecules was created for faster computational times. 
+### Cluster Fingerprints (`cluster-fp.ipynb`)
 
-We first discussed the possibility of standarizing our data before running the PCA and clustering algorithms. The discussion for this can be seen in `test.ipynb` or in the bottom of this file. 
+Here, we modified the approach by moving away from the MFP_matrix and opting for K-means clustering of the fingerprints. However, this change didn't align with our expectations. The challenge lies in the fingerprint type; the morgan fingerprint we used wasn't optimal for HMDB's diverse dataset containing phospholipids, drug-like molecules, etc. Consequently, despite the code's correctness, the fingerprint failed to provide the needed information for effective clustering.
 
-[Here](#standardize-or-not-to-standardize-that-is-the-question)
+Addressing the fingerprint, we implemented 'map4' fingerprints from [reymon-group](https://github.com/reymond-group/map4/blob/master/README.md). We tested map4 with data from the Human Metabolome Database. Each of the ~4000 molecules' map4 fingerprints were exported and cleaned into a `MR1_map4-clean.csv` CSV file. Additionally, a smaller dataset of ~100 molecules was created for faster computational times.
 
+We debated the pros and cons of standardizing our data before running PCA and clustering algorithms. This discussion is available in `test.ipynb` or at the end of this file.
 
-First we did a test for seeing how the map4 fp helped us clustering our molecules that can be seen in `test.ipynb`. The results were much more sensitive than the first ones. A great part of our dataset was grouped into the same cluster while way smaller groups formed in different clusters. Again, this is not ideal (only one centroid for half of our datasets and several other centroids for very small data portions) but it makes sense when dealing with such a chemically diverse group of metabolits. This shows that map4 should be useful for our clustering problems so we decided to go for a more in-depth approach for our code. 
+Initially, we conducted a test using map4 fingerprints to observe their impact on clustering, detailed in `test.ipynb`. These results displayed higher sensitivity than the previous approach. While not ideal, this outcome is reasonable due to the dataset's chemical diversity. The outcome led us to believe that map4 could be valuable for our clustering problem, prompting us to take a more comprehensive approach in our code.
 
-`test-findK.ipynb` was created to calculate the best K for our dataset. 
+### Find Optimal K (`test-findK.ipynb`)
 
+This notebook was created to determine the optimal K value for our dataset.
 
+## Standardization
 
-### Standardize or not to standardize, that is the question {#standardize-or-not-to-standardize-that-is-the-question}
+### Standardize or Not to Standardize, That Is the Question {#standardize-or-not-to-standardize-that-is-the-question}
 
+When it comes to PCA, standardizing data is common practice. However, the scenario changes with map4 fingerprints. Their inherent scale (despite variations spanning three orders of magnitude) challenges the necessity of standardization. Standardization is typically employed to bridge dissimilar units, like comparing the height and girth of a tree.
 
-Typically, data is standardized before performing a PCA. 
-However, in the case of map4 fingerprints, I find that standarization might not be necessary due to being messured in the same scale (despite variations spanning three orders of magnitud). 
-One would use standarization when contrasting disparate units like the height of a tree and the girth of the same tree. 
+Yet, the HMDB database comprises diverse lipids and phospholipids, potentially explaining magnitude differences. Could standardization address this?
 
-Altough HMDB database contains diverse lipids, phospholipids... which could explain the difference in magnitud for some fingerprints? So maybe standarization is due?
+Let's put it to the test and see what unfolds. While PCA often demands standardization, the unique attributes of map4 fingerprints might yield surprising results. While I'm not an expert in statistics, this exploration is enlightening.
 
-Let's try doing it and see what happens...
+In a way, we're comparing apples to apples. Standardization would be akin to contrasting the height and girth of a tree – fundamentally different units.
 
-When it comes to using PCA, data standarization is usually the go-to step. However, the situation is a bit different with map4 fingerprints. Despite having variations that span three orders of magnitude (1e05 / 1e08) these fingerprints are actually measured on a consistent scale (map4). This makes me wonder if standarization is really necessary...
-Statistics is not my area of expertise so i could be wrong!
+However, HMDB's wide-ranging content includes various molecules, such as lipids and phospholipids. Could standardization offer a solution to these magnitude variations?
 
-We're comparing apples to apples so to speak... For instance, you'd standardize when comparing something like the height of a tree and the tree's girth – they're completely different units.
-
-However... the HMDB database contains all sorts of stuff, lipids, phospholipids... This variety might be the reason behind the magnitude differences we're seeing in some fingerprints. Could standarization help with that??
-
-We'll give standarization a shot and see if it changes things. Maybe it'll clear things up, maybe not. Either way, we'll get a better sense of whether standarization plays a role or not
+We're giving standardization a shot to observe potential impacts. This experiment might clarify things, or it might not. Regardless, it's a step towards uncovering whether standardization influences our results.
 
 [Jump to the Question](#standardize-or-not-to-standardize-that-is-the-question)
