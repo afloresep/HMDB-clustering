@@ -11,8 +11,8 @@
 
 # Dataset
 
-Data can be found in `MR1_map4-clean.xlsx` or `MR1-map4-clean.csv` in the datasets folder. Sourced from HMDB.
-Map4 fingerprints for these molecules are in `MR1-map4-clean.xlsx` or `MR1-map4-clean.csv`
+Data used can be found in ``/datasets/MR1.smi`. Sourced from HMDB.
+Map4 fingerprints for these molecules are in `/datasets/MR1-map4-clean.xlsx` or `/datasets/MR1-map4-clean.csv`
 
 # Code
 
@@ -47,7 +47,3 @@ Let's try doing it and see what happens...
 When it comes to using PCA, data standarization is usually the go-to step. However, the situation is a bit different with map4 fingerprints. Despite having variations that span three orders of magnitude (1e05 / 1e08) these fingerprints are actually measured on a consistent scale (map4). This makes me wonder if standarization is really necessary...
 Statistics is not my area of expertise so i could be wrong!
 We're comparing apples to apples so to speak... For instance, you'd standardize when comparing something like the height of a tree and the tree's girth – they're completely different units.
-
-
-
-
