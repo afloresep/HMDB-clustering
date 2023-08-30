@@ -11,7 +11,8 @@
 
 # Dataset
 
-Data can be found in `MR1-map4-clean.xlsx` and `MR1-map4-clean.csv` datasets. Sourced from HMDB.
+Data can be found in `MR1_map4-clean.xlsx` or `MR1-map4-clean.csv` in the datasets folder. Sourced from HMDB.
+Map4 fingerprints for these molecules are in `MR1-map4-clean.xlsx` or `MR1-map4-clean.csv`
 
 # Code
 
@@ -33,7 +34,7 @@ Initially, we conducted a test using map4 fingerprints to observe their impact o
 
 This notebook was created to determine the optimal K value for our dataset.
 
-## Standardize or Not to Standardize, That Is the Question {#standardize-or-not-to-standardize-that-is-the-question}
+## Standardize or Not to Standardize, That Is the Question
 
 Typically, data is standardized before performing a PCA. 
 However, in the case of map4 fingerprints, I find that standarization might not be necessary due to being messured in the same scale (despite variations spanning three orders of magnitud). 
