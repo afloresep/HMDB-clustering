@@ -34,6 +34,14 @@ Initially, we conducted a test using map4 fingerprints to observe their impact o
 
 This notebook was created to determine the optimal K value for our dataset.
 
+
+### Recursive K-means for std data (`std-recursive-kmeans.ipynb`)
+
+This code is for testing what would happen if we did a new K-means clustering on highly populated clusters after doing a first one. 
+If this goes correctly, I will try to implement a recursive method for clustering clusters with more than 20% of total samples.
+
+Also, plotting was improved
+
 ## Standardize or Not to Standardize, That Is the Question
 
 Typically, data is standardized before performing a PCA. 
