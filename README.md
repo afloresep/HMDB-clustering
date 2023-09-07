@@ -58,3 +58,11 @@ We're comparing apples to apples so to speak... For instance, you'd standardize 
 # Results 
 
 So, for what we can see in the `test.ipynb` notebook, standarization does not affect how the molecules are clustered... 
+
+
+
+# vveld_tmap
+Trying to implement vveld code for tmap generation using map4 fingerprints.
+
+Original data is too large to include on GitHub. Will be uploading useful scripts to adapt my data to her code...
+
