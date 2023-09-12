@@ -66,10 +66,10 @@ So, for what we can see in the `test.ipynb` notebook, standarization does not af
 TMAP generated using map4 molecular fingerprints. More suitable for HMDB
 Results can be visualized with tmap_HMDB.html & tmap_HMDB.js
 
-- HMDB-tmap.py
+- `HMDB-tmap.py`
 Script to generate TAMP from HMDB files. 
 
-- data-preparation.py
+- `data-preparation.py`
 Script to preparate data. It takes SMILES and id_name and calculates different parameters.
     *	Heavy atom count (hac)
     *	Molecular weight (mw)
