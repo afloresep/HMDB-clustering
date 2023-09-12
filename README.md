@@ -61,8 +61,7 @@ So, for what we can see in the `test.ipynb` notebook, standarization does not af
 
 
 
-# vveld_tmap
-Trying to implement vveld code for tmap generation using map4 fingerprints.
+# tmap
 
-Original data is too large to include on GitHub. Will be uploading useful scripts to adapt my data to her code...
-
+TMAP generated using map4 molecular fingerprints. More suitable for HMDB
+Results can be visualized with tmap_HMDB.html & tmap_HMDB.js
