@@ -65,3 +65,19 @@ So, for what we can see in the `test.ipynb` notebook, standarization does not af
 
 TMAP generated using map4 molecular fingerprints. More suitable for HMDB
 Results can be visualized with tmap_HMDB.html & tmap_HMDB.js
+
+- HMDB-tmap.py
+Script to generate TAMP from HMDB files. 
+
+- data-preparation.py
+Script to preparate data. It takes SMILES and id_name and calculates different parameters.
+    *	Heavy atom count (hac)
+    *	Molecular weight (mw)
+    *	Estimated lipophilicity (alogp)
+    *	Number of hydrogen bond acceptors (hba)
+    *	Number of hydrogen bond donors (hbd)
+    *	Polar surface area (psa)
+    *	Number of rotatable bonds (rotb)
+    *	Number of aromatic rings (arom)
+    *	Number of structural alerts (alerts)
+
