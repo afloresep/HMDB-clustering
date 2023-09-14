@@ -129,7 +129,7 @@ The script will create a TMAP visualization and save it as `tmap.html` and `tmap
 
 ### Images
 
-![TMAP generated from ~4000 molecules from HMDB](http://url/to/img.png
+![TMAP generated from ~4000 molecules from HMDB](https://github.com/afloresep/HMDB-clustering/blob/master/tmap/Screenshot%202023-09-12%20at%2017.59.40.png)
 
 
 
