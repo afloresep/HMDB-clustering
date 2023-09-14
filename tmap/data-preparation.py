@@ -1,24 +1,45 @@
-import numpy as np 
-import pandas as pd 
-from rdkit import Chem
-from rdkit.Chem import QED
 import os
 import re
+import argparse
+
+import csv
+import numpy as np 
+import pandas as pd 
 
 
+from rdkit import Chem
+from rdkit.Chem import QED
 
-#get input and output files
-directory = os.getcwd()
-frag_prep_tmap = os.path.join(directory, 'HMDB_prep_tmap.pkl')
-frag_hierarchy_df = os.path.join(directory, 'HMDB-hierarchy.pkl')
+def to_cxsmiles(input_file):
+    """
+    Script to change from csv to cxsmiles in desired format
+    """
+    # Create a 'data' subdirectory if it doesn't exist
+    if not os.path.exists("data"):
+        os.makedirs("data")
 
-data = pd.read_csv('HMDB-smiles.csv')
+    # Define the fieldnames for the output CSV
+    fieldnames = ['smiles', 'idnumber', 'Type']
+
+    # Open the input and output files
+    with open(input_file, 'r') as csv_file, open(os.path.join("data", input_file+'.cxsmiles'), 'w', newline='') as output_csv:
+        # Create a CSV reader and writer
+        reader = csv.DictReader(csv_file)
+        writer = csv.DictWriter(output_csv, fieldnames=fieldnames, delimiter='\t')
+
+        # Write the header
+        writer.writeheader()
+
+        # Iterate through the rows in the input CSV and write to the output CSV
+        for row in reader:
+            writer.writerow(row)
+
+    print(f"File 'data/{input_file}.cxsmiles' has been created")
 
 def desalt(data):
     salts = ['\\.I', 'I\\.', '\\.Cl', 'Cl\\.', 'Br\\.']
     data = re.sub('|'.join(salts), '', data)
     return data
-
 
 def calculate_parameters(df):
     # Create empty lists for each parameter
@@ -69,10 +90,26 @@ def calculate_parameters(df):
     return df[['smiles', 'smiles_desalted', 'hac', 'mw', 'alogp', 'hba', 'hbd', 'psa',
        'rotb', 'arom', 'alerts']]
 
-fragments = calculate_parameters(data)
-fragments = fragments.drop_duplicates(subset=['smiles'])
-print(fragments.shape, flush=True)
+
+def main():
+
+    parser = argparse.ArgumentParser(description="Convert a CSV file to cxsmiles format.")
+    parser.add_argument("input_file", help="Input CSV file name")
+    args = parser.parse_args()
+
+    data = pd.read_csv(args.input_file+'.csv')
+
+    frag_prep_tmap = os.path.join(os.getcwd(), args.input_file+'_prep_tmap.pkl')
+
+    fragments = calculate_parameters(data)
+    fragments = fragments.drop_duplicates(subset=['smiles'])
+
+    print(fragments.shape, flush=True)
 
 
-fragments.to_pickle(frag_prep_tmap)
-fragments.to_csv('HMDB_prep_tmap.csv', index=False) # Also save to csv
+    fragments.to_pickle(frag_prep_tmap)
+    fragments.to_csv(args.input_file+'_prep_tmap.csv', index=False) # Also save to csv
+
+
+if __name__ == "__main__":
+    main()
