@@ -175,7 +175,7 @@ def move(output_folder):
 
     # Move tmap.html and tmap.js files into the new folder
     shutil.move('tmap_.html', os.path.join(new_directory, 'tmap_'+output_folder+'.html'))
-    shutil.move('tmap_.js', os.path.join(new_directory, 'tmap.js'))
+    shutil.move('tmap_.js', os.path.join(new_directory, 'tmap_.js'))
 
 
    
