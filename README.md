@@ -84,19 +84,57 @@ Script to preparate data. It takes SMILES and id_name and calculates different p
     *	Number of structural alerts (alerts)
 
     
-### `HMDB-tmap.py`
+### `create_tmap.py`
 
 This script is designed to create a TMAP visualization based on input data in a .pkl file format created by `data_preparation.py`. 
 The TMAP visualization involves various configurations and options that can be customized using command-line arguments.
 
 ## Usage
 
+
+
+## Setting up the Conda Environment
+
+To ensure that you have the required dependencies to run this project, you can create a Conda environment based on the provided `tmap_environment.yml` file. Follow these steps:
+
+1. **Clone the Repository**: First, clone this repository to your local machine:
+
+   ```
+   git clone https://github.com/yourusername/yourproject.git
+   ```
+
+2. **Navigate to the Project Directory**: Change your current directory to the project's root directory:
+
+   ```
+   cd yourproject
+   ```
+
+3. **Create a New Conda Environment**: Create a new Conda environment using the provided YAML file. You can choose to use the same environment name (`tmap`) or specify a different one:
+
+   ```
+   conda env create --name tmap --file tmap_environment.yml
+   ```
+
+4. **Activate the Environment**: Activate the newly created environment:
+
+   ```
+   conda activate tmap
+   ```
+
+Now, you have set up the Conda environment with all the required packages. You can run the project within this environment.
+
+To deactivate the environment when you're done, simply run:
+
+```
+conda deactivate
+```
+
 ### Running the Script
 
 To run the script, open your terminal and execute the following command:
 
 ```
-python HMDB-tmap.py input_file [options]
+python create_tmap.py input_file [options]
 ```
 
 - `input_file`: This is the input data file in .pkl format that you want to use for creating the TMAP visualization.
@@ -118,7 +156,7 @@ The script supports several command-line options that allow you to customize the
 Example:
 
 ```
-python HMDB-tmap.py HMDB-smiles --map4_dim 512
+python create_tmap.py HMDB-smiles --map4_dim 512
 ```
 
 This command runs the script using `HMDB-smiles.pkl` as input data and modifies the `map4_dim` option to 512, overriding the default value.
@@ -126,6 +164,7 @@ This command runs the script using `HMDB-smiles.pkl` as input data and modifies 
 ### Output
 
 The script will create a TMAP visualization and save it as `tmap.html` and `tmap.js` files in the same directory as the script. It will also move these files and any files starting with the input file name into a new folder with the same name as the input file.
+
 
 ### Images
 
