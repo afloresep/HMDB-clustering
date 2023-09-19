@@ -8,6 +8,9 @@
 - [License](#license)
 
 # Overview
+![TMAP generated from ~4000 molecules from HMDB](https://github.com/afloresep/HMDB-clustering/blob/master/tmap/Screenshot%202023-09-12%20at%2017.59.40.png)
+The goal of this repository is to visually explore the structure of extensive and varied datasets through the utilization of TMAP and MAP4 fingerprint techniques.
+
 
 # Dataset
 
@@ -18,7 +21,7 @@ Map4 fingerprints for these molecules are in `/datasets/MR1-map4-clean.xlsx` or 
 # TMAP 
 
 ### `data_preparation.py` 
-prepares data. Input should be a csv with the following format: 
+Prepares data. Input should be a csv with the following format: 
 
 ```
 idnumber,smiles
