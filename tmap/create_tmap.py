@@ -469,7 +469,7 @@ def main():
     args = parser.parse_args()
 
     
-    subprocess.run(["python", "data_prep.py", args.input_file])
+    subprocess.run(["python", "data-preparation.py", args.input_file])
 
     create_tmap(pkl_file_name=args.input_file, 
         LSH_dim=args.LSH_dim,
