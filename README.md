@@ -1,6 +1,5 @@
 # TMAP
 
-**Objective:**
 This repository aims to visualize and cluster a highly diverse dataset obtained from the Human Metabolite Data Base. The input dataset comprises approximately 4,000 molecules. To use the script with a different input dataset than the one provided, please adhere to the following format in a CSV file:
 
 ```
