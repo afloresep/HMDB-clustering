@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 from rdkit import Chem
 from rdkit.Chem import AllChem
-
+from pyvis.network import Network
 from timeit import default_timer as timer
 
 def FindCentroid(file_name):

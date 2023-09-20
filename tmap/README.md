@@ -71,7 +71,7 @@ To ensure that you have the required dependencies to run this project, you can c
 3. **Create a New Conda Environment**: Create a new Conda environment using the provided YAML file. You can choose to use the same environment name (`tmap`) or specify a different one:
 
    ```
-   conda env create --name tmap --file tmap_environment.yml
+   conda create env --name tmap --file tmap_environment.yml
    ```
 
 4. **Activate the Environment**: Activate the newly created environment:
@@ -90,13 +90,11 @@ conda deactivate
 
 ### Running the Script
 
-To run the script, open your terminal and execute the following command:
+To run the script, open your terminal, go to tmap folder and execute the following command:
 
 ```
-python create_tmap.py input_file [options]
+python create_tmap.py HMDB-smiles 
 ```
-
-- `input_file`: This is the input data file in .pkl format that you want to use for creating the TMAP visualization.
 
 ### Command-Line Options
 
@@ -122,7 +120,7 @@ This command runs the script using `HMDB-smiles.pkl` as input data and modifies 
 
 ### Output
 
-The script will create a TMAP visualization and save it as `tmap.html` and `tmap.js` files in the same directory as the script. It will also move these files and any files starting with the input file name into a new folder with the same name as the input file.
+The script will create a TMAP visualization and save it as `.html` and `.js` files in the same directory as the script. It will also move these files and any files starting with the input file name into a new folder with the same name as the input file.
 
 
 ### Images
