@@ -38,7 +38,7 @@ Additionally, it generates other files in pickle (pkl) format that will be used 
 
 TMAP, which stands for Topological Mapping, is a data visualization method designed to address the challenge of representing large datasets with millions of data points and high dimensionality in a two-dimensional format. It aims to visualize data while preserving both global and local features, providing sufficient detail for human inspection and interpretation.
 
-![Reference](https://jcheminf.biomedcentral.com/articles/10.1186/s13321-020-0416-x)
+[Reference](https://jcheminf.biomedcentral.com/articles/10.1186/s13321-020-0416-x)
 
 In essence, TMAP accomplishes these four steps:
 
