@@ -101,10 +101,10 @@ conda deactivate
 
 ### Running the Script
 
-To run the script, open your terminal, go to tmap folder and execute the following command:
+To run the script, open your terminal, replace HMDB-smiles.csv with your csv and execute the following command:
 
 ```
-python create_tmap.py HMDB-smiles 
+python main.py your_file
 ```
 
 ### Command-Line Options
@@ -143,7 +143,6 @@ The script will create a TMAP visualization and save it as `.html` and `.js` fil
 ![TMAP generated from ~4000 molecules from HMDB](https://github.com/afloresep/HMDB-clustering/assets/41540492/9a5a3955-d5a9-4855-9e70-9b7f733983e6)
 
 ![Representative nodes selected based on degree centrality](https://github.com/afloresep/HMDB-clustering/blob/master/output/tmap_with_nodes.png)
-
 
 
 
