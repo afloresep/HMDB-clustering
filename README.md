@@ -160,7 +160,6 @@ The script will create a TMAP visualization and save it as `.html` and `.js` fil
 ### LSH Forest indexing
 <!-- Anchor point for LSH Forest indexing section -->
 <a name="lsh-forest-indexing"></a>
-Here's an improved version of the text with some clarifications and readability enhancements:
 
 LSH, short for Locality-Sensitive Hashing, is a technique designed to approximate the similarity between pairs of high-dimensional data points. This method proves particularly valuable for efficiently identifying similar items within large datasets.
 
