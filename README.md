@@ -1,6 +1,17 @@
-# TMAP
+#### TMAP
+<a name="tmap"></a>
+#### Usage
+<a name="usage-section"></a>
+#### Output-section
+<a name="output-section"></a>
+#### Images
+<a name="images-section"></a>
 
-![TMAP generated from ~4000 molecules from HMDB](https://github.com/afloresep/HMDB-clustering/blob/master/tmap/Screenshot%202023-09-12%20at%2017.59.40.png)
+
+
+## [TMAP](#tmap)
+
+![TMAP generated from ~4000 molecules from HMDB](https://github.com/afloresep/HMDB-clustering/assets/41540492/9a5a3955-d5a9-4855-9e70-9b7f733983e6)
 
 This repository aims to visualize and a highly diverse dataset obtained from the Human Metabolite Data Base. Then, based on the graph, select as many representative as the user wants.
 The input dataset comprises approximately 4,000 molecules. To use the script with a different input dataset than the one provided, please adhere to the following format in a CSV file:
@@ -60,10 +71,10 @@ Degree centrality is a measure of how well-connected a node is within the graph.
 The number of nodes selected is defined by the variable --heads (default= 100)
 
 
-## Usage
+## [Usage](#usage-section)
 
 
-## Setting up the Conda Environment
+### Setting up the Conda Environment
 
 To ensure that you have the required dependencies to run this project, you can create a Conda environment based on the provided `tmap_environment.yml` file. Follow these steps:
 
@@ -99,15 +110,15 @@ To deactivate the environment when you're done, simply run:
 conda deactivate
 ```
 
-### Running the Script
+#### Running the Script
 
-To run the script, open your terminal, go to tmap folder and execute the following command:
+To run the script, open your terminal, replace HMDB-smiles.csv with your csv and execute the following command:
 
 ```
-python create_tmap.py HMDB-smiles 
+python main.py your_file
 ```
 
-### Command-Line Options
+#### Command-Line Options
 
 The script supports several command-line options that allow you to customize the TMAP creation process:
 
@@ -128,16 +139,21 @@ Example:
 python main.py HMDB-smiles --heads 200
 ```
 
-### Output
+## [Output](#output-section)
 
-The script will create a TMAP visualization and save it as `.html` and `.js` files in the same directory as the script. 
+The script will create a TMAP visualization and save it as `.html` and `.js` files in the same directory as the script. Open the html file to visualize the TMAP graph. 
 
+`graph_info.csv` - CSV with the coordinates for each node, label and source and target nodes (its connections basically) for that node. 
 
+`name_prep_tmap.csv` - CSV with all the parameters to be used for TMAP visualization. 
 
-### Images
+`representative_nodes.txt` - Text file with the label and smile code for all the representatives. 
 
-![TMAP generated from ~4000 molecules from HMDB](https://github.com/afloresep/HMDB-clustering/blob/master/tmap/Screenshot%202023-09-12%20at%2017.59.40.png)
+### [Images](#images-section)
 
+![TMAP generated from ~4000 molecules from HMDB](https://github.com/afloresep/HMDB-clustering/assets/41540492/9a5a3955-d5a9-4855-9e70-9b7f733983e6)
+
+![Representative nodes selected based on degree centrality](https://github.com/afloresep/HMDB-clustering/blob/master/output/tmap_with_nodes.png)
 
 
 
