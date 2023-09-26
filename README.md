@@ -1,12 +1,10 @@
-# TMAP
-
-- TMAP
+#### TMAP
 <a name="tmap"></a>
-- Usage
+#### Usage
 <a name="usage-section"></a>
-- Output-section
+#### Output-section
 <a name="output-section"></a>
-- Images
+#### Images
 <a name="images-section"></a>
 
 
