@@ -2,7 +2,8 @@
 
 ![TMAP generated from ~4000 molecules from HMDB](https://github.com/afloresep/HMDB-clustering/blob/master/tmap/Screenshot%202023-09-12%20at%2017.59.40.png)
 
-This repository aims to visualize and cluster a highly diverse dataset obtained from the Human Metabolite Data Base. The input dataset comprises approximately 4,000 molecules. To use the script with a different input dataset than the one provided, please adhere to the following format in a CSV file:
+This repository aims to visualize and a highly diverse dataset obtained from the Human Metabolite Data Base. Then, based on the graph, select as many representative as the user wants.
+The input dataset comprises approximately 4,000 molecules. To use the script with a different input dataset than the one provided, please adhere to the following format in a CSV file:
 
 ```
 idnumber,smiles
@@ -17,7 +18,7 @@ HMDB0000058,Nc1ncnc2c1ncn2C1OC2COP(=O)(O)OC2C1O
 ```
 
 **Execution:**
-The visualization and clustering are achieved by calling a single script, `create_tmap.py`, which, in turn, utilizes other scripts to produce the desired outcome. In essence, this script follows several steps:
+The visualization and selection of molecules are achieved by calling a single script, `main.py`, which, in turn, utilizes other scripts to produce the desired outcome. In essence, this script follows several steps:
 
 ### 1. Data Preparation
 
@@ -34,7 +35,7 @@ By invoking `data_preparation.py`, the script prepares the data. This script tak
 - Number of aromatic rings (arom)
 - Number of structural alerts (alerts)
 
-Additionally, it generates other files in pickle (pkl) format that will be used in subsequent steps.
+All these will be used when visualizing our molecules in TMAP. Depending on their value on each parameter each node color will variate. 
 
 ### 2. Create TMAP
 
@@ -42,24 +43,20 @@ TMAP, which stands for Topological Mapping, is a data visualization method desig
 
 [Reference](https://jcheminf.biomedcentral.com/articles/10.1186/s13321-020-0416-x)
 
-In essence, TMAP accomplishes these four steps:
+In essence, TMAP accomplishes these four step:
 
-1. LSH Forest indexing
-2. Build c-approximate k-NN
-3. Calculate MST of the k-NN
-4. Lay the tree on the Euclidean plane using the OGDF modular C++ library
+1. [LSH Forest indexing](#lsh-forest-indexing)
+2. [Build c-approximate k-NN](#c-approximate-knn)
+3. [Calculate MST of the k-NN](#calculate-mst)
+4. [Lay the tree on the Euclidean plane using the OGDF modular C++ library](#ogdf-library)
 
-### 3. Find the Centroid
+You can read more about this at the bottom of the page. 
 
-TMAP generates a tree structure, making it impossible to directly identify cluster centers. To overcome this limitation, the tree's topology is leveraged to create a DataFrame representing the hierarchy of the tree. This enables the selection of fragments that represent specific branches or portions.
+### 3. Select n representative molecules
+
+TMAP generates a network structure, making it impossible to directly identify cluster centers. To overcome this limitation, the tree's topology is leveraged to create a DataFrame representing the hierarchy of the tree. This enables the selection of fragments that represent specific branches or portions.
 
 To find the centroid of the tree, a node is identified where each branch contains fewer nodes than half the total number of nodes/fragments (n) in the tree. This process involves using a Python script (centroid.py), similar to the one used in OpenGenus IQ17 for centroid decomposition. The ID of the centroid node is saved to a text file (centroid.txt).
-
-### 4. Hierarchy
-
-The script identifies the children of the centroid node and adds them to a new column in the DataFrame. It also repeats this process for children of children while avoiding the addition of nodes that are already present in the DataFrame. The final DataFrame is converted to CSV for visualization purposes.
-
-
 
 ## Usage
 
@@ -141,3 +138,26 @@ The script will create a TMAP visualization and save it as `.html` and `.js` fil
 
 
 
+
+
+### LSH Forest indexing
+<!-- Anchor point for LSH Forest indexing section -->
+<a name="lsh-forest-indexing"></a>
+LSH stands for Locality-Sensitive-Hashing (LSH) which is a technique used in computer science and data mining to approximate the similarity between pairs of high-dimensional data points. It’s particularly useful in finding similar items efficiently. 
+
+The basic idea behind LSH is to ‘hash’ data points. This means to apply a function to a data point to convert it into a fixed-size hash code (typically 1024 bits). The hash function takes a data point as input and produces a unique output that represent that data point. The hash function is design in such a way that similar data points are mapped to the same or nearby hash codes with high probability. This means that if two points are similar, their hash code should be very close in the hash code space. This way, when you need to search similar items, you can focus your search on a limited set of candidates within the same hash bucket, reducen the overall computational complexity. 
+
+LSH Forest Indexing is an extension of traditional LSH. It uses a forest of multiple hash tables (instead of just one). When querying a data point, LSH Forest performs approximate nearest neighbour search by looking at multiple hash tables in parallel, improving its accuracy compared to traditional LSH. 
+
+
+### Build c-approximate k-NN
+<!-- Anchor point for Build c-approximate k-NN section -->
+<a name="c-approximate-knn"></a>
+
+### Calculate MST of the k-NN
+<!-- Anchor point for Calculate MST of the k-NN section -->
+<a name="calculate-mst"></a>
+
+### Lay the tree on the Euclidean plane using the OGDF modular C++ library
+<!-- Anchor point for OGDF section -->
+<a name="ogdf-library"></a>
