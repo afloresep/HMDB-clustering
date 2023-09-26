@@ -1,4 +1,4 @@
-#### TMAP
+#### TMAP
 <a name="tmap"></a>
 #### Usage
 <a name="usage-section"></a>
