@@ -1,6 +1,6 @@
 # TMAP
 
-![TMAP generated from ~4000 molecules from HMDB](https://github.com/afloresep/HMDB-clustering/blob/master/tmap/Screenshot%202023-09-12%20at%2017.59.40.png)
+![TMAP generated from ~4000 molecules from HMDB](https://github.com/afloresep/HMDB-clustering/assets/41540492/9a5a3955-d5a9-4855-9e70-9b7f733983e6)
 
 This repository aims to visualize and a highly diverse dataset obtained from the Human Metabolite Data Base. Then, based on the graph, select as many representative as the user wants.
 The input dataset comprises approximately 4,000 molecules. To use the script with a different input dataset than the one provided, please adhere to the following format in a CSV file:
@@ -136,7 +136,7 @@ The script will create a TMAP visualization and save it as `.html` and `.js` fil
 
 ### Images
 
-![TMAP generated from ~4000 molecules from HMDB](https://github.com/afloresep/HMDB-clustering/blob/master/tmap/Screenshot%202023-09-12%20at%2017.59.40.png)
+![TMAP generated from ~4000 molecules from HMDB](https://github.com/afloresep/HMDB-clustering/assets/41540492/9a5a3955-d5a9-4855-9e70-9b7f733983e6)
 
 
 
