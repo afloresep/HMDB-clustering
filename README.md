@@ -54,9 +54,11 @@ You can read more about this at the bottom of the page.
 
 ### 3. Select n representative molecules
 
-TMAP generates a network structure, making it impossible to directly identify cluster centers. To overcome this limitation, the tree's topology is leveraged to create a DataFrame representing the hierarchy of the tree. This enables the selection of fragments that represent specific branches or portions.
+TMAP generates a network structure, making it impossible to directly identify centers.To overcome this, the code employs the concept of degree centrality, a fundamental measure in graph theory. Degree centrality assesses the importance of a node within a network based on the number of edges (connections) it has. In the context of your large dataset visualization, it helps identify nodes that play pivotal roles or serve as key junctions in the data structure.
 
-To find the centroid of the tree, a node is identified where each branch contains fewer nodes than half the total number of nodes/fragments (n) in the tree. This process involves using a Python script (centroid.py), similar to the one used in OpenGenus IQ17 for centroid decomposition. The ID of the centroid node is saved to a text file (centroid.txt).
+Degree centrality is a measure of how well-connected a node is within the graph. A higher degree centrality indicates that a particular node is connected to more neighbors, making it a potentially significant node in terms of information flow or connectivity
+The number of nodes selected is defined by the variable --heads (default= 100)
+
 
 ## Usage
 
@@ -110,11 +112,12 @@ python create_tmap.py HMDB-smiles
 The script supports several command-line options that allow you to customize the TMAP creation process:
 
 - `--LSH_dim`: LSH dimension (default: 1024)
-- `--prefix_trees`: Prefix trees (default: 128)
-- `--cfg_k`: k for layout configuration (default: 50)
+- `--heads`: Number of representative nodes selected from the graph. (default:100)
+- `--prefix_trees`: Prefix trees (default: 128): More trees can lead to better accuracy but may also increase computation time and memory usage.
+- `--cfg_k`: k for layout configuration (default: 50).  Number of nearest neighbors or connections considered when arranging data points in the layout.
 - `--cfg_kc`: kc for layout configuration (default: 50)
 - `--cfg_mmm`: mmm_repeats for layout configuration (default: 2)
-- `--cfg_node`: node_size for layout configuration (default: 1/70)
+- `--cfg_node`: node_size for layout configuration (default: 1/70). Size of individual nodes or data points in the layout. Influence how spaced out or concentrated the data points appear in the visualization
 - `--cfg_sl_steps`: sl_extra_scaling_steps for layout configuration (default: 10)
 - `--cfg_sl_repeats`: sl_repeats for layout configuration (default: 2)
 - `--map4_dim`: MAP4 dimension (default: 1024)
@@ -122,14 +125,13 @@ The script supports several command-line options that allow you to customize the
 Example:
 
 ```
-python create_tmap.py HMDB-smiles --map4_dim 512
+python main.py HMDB-smiles --heads 200
 ```
-
-This command runs the script using `HMDB-smiles.pkl` as input data and modifies the `map4_dim` option to 512, overriding the default value.
 
 ### Output
 
-The script will create a TMAP visualization and save it as `.html` and `.js` files in the same directory as the script. It will also move these files and any files starting with the input file name into a new folder with the same name as the input file.
+The script will create a TMAP visualization and save it as `.html` and `.js` files in the same directory as the script. 
+
 
 
 ### Images
@@ -139,25 +141,39 @@ The script will create a TMAP visualization and save it as `.html` and `.js` fil
 
 
 
-
 ### LSH Forest indexing
 <!-- Anchor point for LSH Forest indexing section -->
 <a name="lsh-forest-indexing"></a>
-LSH stands for Locality-Sensitive-Hashing (LSH) which is a technique used in computer science and data mining to approximate the similarity between pairs of high-dimensional data points. It’s particularly useful in finding similar items efficiently. 
+Here's an improved version of the text with some clarifications and readability enhancements:
 
-The basic idea behind LSH is to ‘hash’ data points. This means to apply a function to a data point to convert it into a fixed-size hash code (typically 1024 bits). The hash function takes a data point as input and produces a unique output that represent that data point. The hash function is design in such a way that similar data points are mapped to the same or nearby hash codes with high probability. This means that if two points are similar, their hash code should be very close in the hash code space. This way, when you need to search similar items, you can focus your search on a limited set of candidates within the same hash bucket, reducen the overall computational complexity. 
+LSH, short for Locality-Sensitive Hashing, is a technique designed to approximate the similarity between pairs of high-dimensional data points. This method proves particularly valuable for efficiently identifying similar items within large datasets.
 
-LSH Forest Indexing is an extension of traditional LSH. It uses a forest of multiple hash tables (instead of just one). When querying a data point, LSH Forest performs approximate nearest neighbour search by looking at multiple hash tables in parallel, improving its accuracy compared to traditional LSH. 
+**How LSH Works: Hashing Data Points**
+
+At the core of LSH is the process of "hashing" data points. Hashing involves applying a specialized function to a data point, transforming it into a fixed-size hash code. This hash function takes a data point as input and produces a unique output that represents that specific data point.
+
+The hash funciton is designed in a way that ensures similar data points are mapped to the same or nearby hash codes with a high degree of probability (usually described as falling 'in the same cube'). In other words, if two data points share similarity, their resulting hash codes should be very close to each other within the hash code space. This strategic design enables efficient searches for similar items.
+
+LSH Forest Indexing takes LSH a step further by introducing a forest of multiple hash tables instead of just one. When querying a data point, LSH Forest performs an approximate nearest neighbor search by simultaneously examining multiple hash tables. This approach significantly improves accuracy when compared to traditional LSH.
 
 
 ### Build c-approximate k-NN
 <!-- Anchor point for Build c-approximate k-NN section -->
 <a name="c-approximate-knn"></a>
+Given the LSH Forest index, this step involves finding c-approximate nearest neighbors for each data point. Instead of calculating exact nearest neighbors, which can be computationally expensive for large datasets, approximate methods are used to find an approximate set of k-NNs for each data point.
+The 𝑐–𝑘-NNG construction phase takes two arguments, namely 𝑘, the number of nearest-neighbors to be searched for, and 𝑘𝑐, the factor used by the augmented query algorithm. The variant of the query algorithm increases the time complexity of a single query from 𝑂(log𝑛) to 𝑂(𝑘⋅𝑘𝑐+log𝑛), resulting in an overall time complexity of 𝑂(𝑛(𝑘⋅𝑘𝑐+log𝑛)), where practically 𝑘⋅𝑘𝑐>log𝑛, for the 𝑐–𝑘-NNG construction.
 
 ### Calculate MST of the k-NN
 <!-- Anchor point for Calculate MST of the k-NN section -->
 <a name="calculate-mst"></a>
+The MST, or Minimum Spanning Tree, is a graph that connects all data points in a way that minimizes the total edge weight. In this step, the algorithm constructs an MST based on the c-approximate k-NNs obtained in the previous step. The MST helps capture the global structure and relationships among data points.
+
+The algorith used for MST is Kruskal’s algorithm. A greedy algorithm beacuse it makes locally optimal choices at each step (i.e., selecting the minimum-weight edge) with the hope of finding a globally optimal solution (the MST)
+
+![image](https://github.com/afloresep/HMDB-clustering/assets/41540492/23a86368-52ca-416c-8f34-ac6f0152ab2b)
+
 
 ### Lay the tree on the Euclidean plane using the OGDF modular C++ library
 <!-- Anchor point for OGDF section -->
 <a name="ogdf-library"></a>
+To maintain compactness in the visualization and because the Minimum Spanning Tree (MST) is inherently unrooted, a graph layout algorithm, rather than a traditional tree layout, is used. For the purpose of rendering MSTs with a significant number of vertices, often in the millions, a layout algorithm employing a spring-electrical model with a multilevel multipole-based force approximation is employed. This algorithm is made available through the Open Graph Drawing Framework (OGDF), which is a modular C++ library.
