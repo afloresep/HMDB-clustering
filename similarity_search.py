@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt
 from rdkit import Chem
 import tmap as tm
 from map4 import MAP4Calculator
-
+import time
 
 dim = 1024
 
@@ -45,6 +45,7 @@ idnumber = dataset['idnumber']
 similarity_dict = {}
 
 
+start_time = time.time()
 with open(representative_path, 'r') as file:
     # Read each line in the file
     for line in file:
@@ -56,19 +57,17 @@ with open(representative_path, 'r') as file:
         for smiles2, id2 in zip(data,idnumber):
             mol_b = Chem.MolFromSmiles(smiles2)
             map4_b = MAP4.calculate(mol_b)
-            if ENC.get_distance(map4_reference, map4_b) < 0.7:
+            if ENC.get_distance(map4_reference, map4_b) < 0.50:
                 similar_molecules.append((id2, smiles2, ENC.get_distance(map4_reference, map4_b)))
-                print(f'{id2} was added with a distance of {ENC.get_distance(map4_reference, map4_b)}')
             similarity_dict[id] = similar_molecules
         print(f'for {id}: {len(similar_molecules)} molecules found')
+end_time = time.time()  # Record the end time
+elapsed_time = (end_time - start_time)/60
 
-
+print(f'Total time: {elapsed_time:.2f} minutes')
 # Create a DataFrame from the dictionary
-df = pd.DataFrame.from_dict(similar_molecules, orient='index')
-
-# Transpose the DataFrame for a more readable structure
-df = df.transpose()
+df = pd.DataFrame.from_dict( similarity_dict, orient='index')
 
 # Save the DataFrame to an Excel file
-excel_file = 'output.xlsx'
+excel_file = 'output_70.xlsx'
 df.to_excel(excel_file, index=False)
